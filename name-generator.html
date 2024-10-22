@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: rgba(30, 41, 59, 0.8);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 90%;
+      width: 400px;
+    }
+
+    h1 {
+      color: #60a5fa;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    .generated-name {
+      font-size: 1.5rem;
+      margin: 1.5rem 0;
+      min-height: 2.5rem;
+      color: #93c5fd;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    input[type="checkbox"] {
+      accent-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Unique Name Generator</h1>
+    
+    <div class="options">
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="fantasy" checked>
+        <label for="fantasy">Fantasy</label>
+      </div>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="scifi" checked>
+        <label for="scifi">Sci-Fi</label>
+      </div>
+    </div>
+
+    <div class="generated-name" id="name"></div>
+    <button onclick="generateName()">Generate Name</button>
+  </div>
+
+  <script>
+    const fantasyPrefixes = ['Aether', 'Frost', 'Shadow', 'Star', 'Moon', 'Dawn', 'Dusk', 'Storm', 'Wild', 'Dream'];
+    const fantasySuffixes = ['weaver', 'heart', 'blade', 'song', 'spirit', 'soul', 'wind', 'light', 'walker', 'guard'];
+    
+    const scifiPrefixes = ['Neo', 'Cyber', 'Tech', 'Quantum', 'Zero', 'Hyper', 'Matrix', 'Vector', 'Nexus', 'Nova'];
+    const scifiSuffixes = ['tron', 'byte', 'flux', 'core', 'sync', 'wave', 'pulse', 'grid', 'sphere', 'node'];
+
+    function getRandomElement(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function generateName() {
+      const fantasyChecked = document.getElementById('fantasy').checked;
+      const scifiChecked = document.getElementById('scifi').checked;
+      
+      if (!fantasyChecked && !scifiChecked) {
+        document.getElementById('name').textContent = 'Please select at least one genre';
+        return;
+      }
+
+      let prefixes = [];
+      let suffixes = [];
+
+      if (fantasyChecked) {
+        prefixes = prefixes.concat(fantasyPrefixes);
+        suffixes = suffixes.concat(fantasySuffixes);
+      }
+      
+      if (scifiChecked) {
+        prefixes = prefixes.concat(scifiPrefixes);
+        suffixes = suffixes.concat(scifiSuffixes);
+      }
+
+      const prefix = getRandomElement(prefixes);
+      const suffix = getRandomElement(suffixes);
+      
+      document.getElementById('name').textContent = prefix + suffix;
+    }
+
+    // Generate initial name on load
+    generateName();
+  </script>
+</body>
+</html>
